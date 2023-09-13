@@ -1,6 +1,6 @@
 import { Events, EventsType } from "../types/events";
 
-export const events = () => {
+export const eventConnect = () => {
   const on = (event: EventsType, callback: (event: any) => void) => {
     document.addEventListener(Events[event], callback);
   };
