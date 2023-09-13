@@ -4,6 +4,7 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 
 module.exports = {
   entry: './src/index.js',
+  mode: "development",
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, './dist'),
@@ -44,7 +45,17 @@ module.exports = {
       filename: 'remoteEntry.js',
       exposes: {
         './HomePage': './src/Home'
-      }
+      },
+      shared: {
+        react: {
+          singleton: true,
+          requiredVersion: '^17.0.1'
+        },
+        'react-dom': {
+          singleton: true,          
+          requiredVersion: '^17.0.1'
+        },
+      },
     })
   ]
 }

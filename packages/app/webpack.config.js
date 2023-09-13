@@ -1,9 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const deps = require('./package.json').dependencies;
 
 module.exports = {
   entry: './src/index.js',
+  mode: "development",
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, './dist'),
@@ -44,7 +46,17 @@ module.exports = {
       remotes: {
         HomeApp: 'HomeApp@http://localhost:9002/remoteEntry.js',
         ContactApp: 'ContactApp@http://localhost:9003/remoteEntry.js',
-      }
+      },
+      shared: {
+        react: {
+          singleton: true,
+          requiredVersion: '^17.0.1'
+        },
+        'react-dom': {
+          singleton: true,          
+          requiredVersion: '^17.0.1'
+        },
+      },
     })
   ]
 }

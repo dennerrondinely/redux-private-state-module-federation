@@ -1,0 +1,27 @@
+{
+  "name": "lib",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Denner Rondinely <denner.rondinely@gmail.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.9",
+    "@babel/preset-env": "^7.22.9",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "babel-loader": "^8.2.5",
+    "rollup": "^2.78.0",
+    "rollup-plugin-delete": "^2.0.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.32.1",
+    "typescript": "^4.7.4"
+  }
+}
