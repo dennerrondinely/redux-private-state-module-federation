@@ -1,4 +1,5 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
+import { Provider } from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,9 +11,16 @@ import {
   Nav,
   NavItem
 } from 'reactstrap';
+import { eventConnect } from '../../eventConnect/lib';
+
+import store from './store';
 
 // CSS
 import './app.css';
+
+const event = eventConnect()
+
+
 
 const App = () => {
 
@@ -20,7 +28,17 @@ const App = () => {
   const HomePage = React.lazy(() => import("HomeApp/HomePage"));
   const ContactPage = React.lazy(() => import("ContactApp/ContactPage"));
 
-  return(
+  useEffect(() => {
+    event.on('getCount', ({ detail }) => {
+      detail(store.getState().counter.value)
+    })
+
+    store.subscribe(() => {
+      event.emit('returnCount', store.getState().counter.value)
+    })
+  }, [])
+
+  return (
     <Router>
       <div>
         <Navbar color="light" light expand="md">
@@ -35,9 +53,11 @@ const App = () => {
         </Navbar>
         <Switch>
           <Route exact path="/">
-            <Suspense fallback={<div>Loading...</div>}>
-              <HomePage />
-            </Suspense>
+            <Provider store={store}>
+              <Suspense fallback={<div>Loading...</div>}>
+                <HomePage />
+              </Suspense>
+            </Provider>
           </Route>
           <Route exact path="/contact">
             <Suspense fallback={<div>Loading...</div>}>

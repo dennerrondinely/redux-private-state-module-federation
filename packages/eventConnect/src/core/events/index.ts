@@ -9,7 +9,7 @@ export const eventConnect = () => {
     document.removeEventListener(Events[event], callback);
   };
 
-  const emit = (event: EventsType, ...args: any[]) => {
+  const emit = (event: EventsType, args: any) => {
     const customEvent = new CustomEvent(Events[event], { detail: args });
 
     document.dispatchEvent(customEvent);
